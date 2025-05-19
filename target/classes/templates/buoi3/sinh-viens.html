@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List</title>
+</head>
+<body>
+<h1>Header</h1>
+<form>
+    <label for="search">Tên:</label>
+    <input type="text" id="search" name="search">
+    <button type="submit">Search</button>
+</form>
+<!--C1: ro rang-->
+<select>
+    <option th:each="sv1 : ${listSinhVien}">
+         <span th:text="${sv1.tenSV}"></span>
+    </option>
+</select>
+<br/>
+<!--C2: rut gon 1 the co chua nhieu th-->
+<select>
+    <option th:each="sv1 : ${listSinhVien}"
+            th:text="${sv1.tenSV}"
+            th:value="${sv1.msv}">
+    </option>
+</select>
+<button>Add Student</button>
+<table border="1">
+    <thead>
+    <tr>
+        <th>MSSV</th>
+        <th>Tên</th>
+        <th>Tuổi</th>
+        <th>Địa chỉ</th>
+        <th>Giới tính</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+<!--    ${}-->
+<!--    *{} : detail-->
+<!--    @{}: duong dan-->
+    <tr th:each="sv : ${listSinhVien}">
+        <td th:text="${sv.msv}"></td>
+        <td th:text="${sv.tenSV}"></td>
+        <td th:text="${sv.tuoi}"></td>
+        <td th:text="${sv.diaChi}"></td>
+        <td th:text="${sv.gioiTinh ? 'Nam':'Nu'}"></td>
+        <td>
+            <a th:href="@{/sinh-vien/remove/{a}(a=${sv.msv})}">Delete</a>
+            <a th:href="@{/sinh-vien/detail/{b}(b=${sv.msv})}">Detail</a>
+            <a th:href="@{/sinh-vien/view-update/{c}(c=${sv.msv})}">Update</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<h1>Footer</h1>
+</body>
+</html>
