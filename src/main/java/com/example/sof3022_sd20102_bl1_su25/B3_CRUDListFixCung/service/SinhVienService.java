@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SinhVienService {
@@ -26,4 +27,19 @@ public class SinhVienService {
     public void removeSinhVien(String mssv){
         listSinhVien.removeIf(s->s.getMsv().equalsIgnoreCase(mssv));
     }
+    public SinhVien detailSinhVien(String mssv){
+//        for(){
+//            if(mssv )
+//        }
+        return listSinhVien.stream()
+                .filter(s->s.getMsv().equalsIgnoreCase(mssv))
+//                .collect(Collectors.toList())
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void add(SinhVien sv){
+        listSinhVien.add(sv);
+    }
+
 }
