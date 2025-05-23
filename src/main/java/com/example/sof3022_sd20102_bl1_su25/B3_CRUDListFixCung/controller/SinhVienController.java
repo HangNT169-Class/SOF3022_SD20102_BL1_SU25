@@ -2,10 +2,13 @@ package com.example.sof3022_sd20102_bl1_su25.B3_CRUDListFixCung.controller;
 
 import com.example.sof3022_sd20102_bl1_su25.B3_CRUDListFixCung.entity.SinhVien;
 import com.example.sof3022_sd20102_bl1_su25.B3_CRUDListFixCung.service.SinhVienService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +41,7 @@ public class SinhVienController {
             Model m
     ) {
         SinhVien sv = svService.detailSinhVien(mssv);
-        m.addAttribute("sv1",sv);
+        m.addAttribute("sv1", sv);
         return "buoi3/detail-sinh-vien";
     }
 
@@ -50,7 +53,7 @@ public class SinhVienController {
     }
 
     @GetMapping("view-update/{c}")
-    public String viewUpdateSinhVien(@PathVariable("c")String ma, Model m) {
+    public String viewUpdateSinhVien(@PathVariable("c") String ma, Model m) {
         SinhVien sv = svService.detailSinhVien(ma);
         m.addAttribute("sv", sv);
         return "/buoi3/update-sinh-vien";
@@ -62,11 +65,19 @@ public class SinhVienController {
     }
 
     @GetMapping("view-add")
-    public String viewFormAddSinhVien(){
+    public String viewFormAddSinhVien(Model m) {
+        m.addAttribute("sv1", new SinhVien());
         return "buoi3/add-sinh-vien";
     }
+
+    // Model => De cuoi cung trong tham so truyen vao
     @PostMapping("add")
-    public String addSinhVien(SinhVien sv){
+    public String addSinhVien(@Valid @ModelAttribute("sv1") SinhVien sv,
+                              BindingResult result
+    ) {
+        if (result.hasErrors()) {
+            return "buoi3/add-sinh-vien";
+        }
         svService.add(sv);
         return "redirect:/sinh-vien/hien-thi";
     }
@@ -75,7 +86,7 @@ public class SinhVienController {
     // Json => api
     @GetMapping("test")
     @ResponseBody
-    public List<SinhVien>test(){
+    public List<SinhVien> test() {
         return svService.getListSinhVien();
     }
 

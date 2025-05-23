@@ -7,24 +7,34 @@
 </head>
 <body>
 <h1>Header</h1>
-<form action="/sinh-vien/add" method="post">
+<form action="/sinh-vien/add" method="post" th:object="${sv1}">
     <label for="mssv">MSSV:</label>
-    <input type="text" id="mssv" name="msv"><br><br>
+    <input type="text" id="mssv" name="msv" th:field="*{msv}">
+    <span th:errors="*{msv}"></span>
+    <br><br>
 
     <label for="name">Tên:</label>
-    <input type="text" id="name" name="tenSV"><br><br>
+    <input type="text" id="name" name="tenSV" th:field="*{tenSV}">
+    <span th:errors="*{tenSV}"></span>
+    <br><br>
 
     <label for="age">Tuổi:</label>
-    <input type="number" id="age" name="tuoi"><br><br>
+    <input type="number" id="age" name="tuoi" th:field="*{tuoi}">
+    <span th:errors="*{tuoi}"></span>
+    <br><br>
 
     <label for="address">Địa chỉ:</label>
-    <input type="text" id="address" name="diaChi"><br><br>
+    <input type="text" id="address" name="diaChi" th:field="*{diaChi}">
+    <span th:errors="*{diaChi}"></span>
+    <br><br>
 
     <label>Giới tính:</label>
-    <input type="radio" id="male" name="gioiTinh" value="true" checked>
+    <input type="radio" id="male" name="gioiTinh" value="true" th:field="*{gioiTinh}">
     <label for="male">Nam</label>
-    <input type="radio" id="female" name="gioiTinh" value="false">
-    <label for="female">Nữ</label><br><br>
+    <input type="radio" id="female" name="gioiTinh" value="false" th:field="*{gioiTinh}">
+    <label for="female">Nữ</label>
+    <span th:errors="*{gioiTinh}"></span>
+    <br><br>
 
     <button type="submit">Add</button>
 </form>
