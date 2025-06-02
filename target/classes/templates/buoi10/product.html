@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<select>
+  <option th:each="cate:${listCategory}">
+    <p th:text="${cate.categoryCode}"></p>
+  </option>
+</select>
+<table>
+  <thead>
+  <tr>
+    <th>STT</th>
+    <th>ProductCode</th>
+    <th>ProductName</th>
+    <th>Gia</th>
+    <th>CategoryCode</th>
+    <th>CategoryName</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="product,i:${listProduct}">
+    <td th:text="${i.count}"></td>
+    <td th:text="${product.code}"></td>
+    <td th:text="${product.name}"></td>
+    <td th:text="${product.price}"></td>
+    <td th:text="${product.cate.categoryCode}"></td>
+    <td th:text="${product.cate.categoryName}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
